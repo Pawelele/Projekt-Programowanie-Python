@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  api:
+    build: app
+    volumes:
+      - './app:/api'
+    ports:
+      - '8080:8000'
+
