@@ -38,11 +38,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        working-directory: app
 
       - name: Set up Heroku CLI
         uses: akhileshns/heroku-deploy@v3.12.12
-        working-directory: app
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}  # Dodaj tajne zasady dla HEROKU_API_KEY w ustawieniach repozytorium
 
