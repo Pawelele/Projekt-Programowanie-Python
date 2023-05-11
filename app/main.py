@@ -1,11 +1,10 @@
+import datetime
+from os import environ
 import uvicorn
 from fastapi import FastAPI, File, UploadFile
-import datetime
 import cv2
 import numpy as np
 from fastapi.responses import StreamingResponse
-import io
-from os import environ
 
 app = FastAPI()
 
