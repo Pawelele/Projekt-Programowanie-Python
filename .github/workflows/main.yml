@@ -28,7 +28,7 @@ jobs:
       - name: Run static code analysis
         working-directory: app
         run: |
-          python -m pylint --load-plugins pylint_quotes app.py
+          python -m pylint --load-plugins pylint_quotes main.py
 
   deploy-to-heroku:
     name: Deploy to Heroku
