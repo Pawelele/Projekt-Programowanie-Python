@@ -1,4 +1,5 @@
-name: Python CI/CD
+#cicd and deploy to heroku
+ name: Python CI/CD
 
 on:
   push:
