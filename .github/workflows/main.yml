@@ -1,0 +1,57 @@
+#cicd and deploy to heroku
+ name: Python CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  static-analysis:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        working-directory: app
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run static code analysis
+        working-directory: app
+        run: |
+          python -m pylint --load-plugins pylint_quotes app.py
+
+  deploy-to-heroku:
+    name: Deploy to Heroku
+    needs: static-analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        working-directory: app
+
+      - name: Set up Heroku CLI
+        uses: akhileshns/heroku-deploy@v3.12.12
+        working-directory: app
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}  # Dodaj tajne zasady dla HEROKU_API_KEY w ustawieniach repozytorium
+
+      - name: Login to Heroku Container Registry
+        run: heroku container:login
+
+      - name: Build and push Docker image
+        run: heroku container:push web -a programowanie-python
+
+      - name: Release to Heroku
+        run: heroku container:release web -a programowanie-python
