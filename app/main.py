@@ -20,7 +20,8 @@ async def count_faces(file: UploadFile = File(...)):
     nparr = np.frombuffer(contents, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +
+    "haarcascade_frontalface_default.xml")
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=3, minSize=(30, 30))
     return {"numm_faces": len(faces)}
 
@@ -51,7 +52,3 @@ async def count_faces(file: UploadFile = File(...)):
 #     return StreamingResponse(io.BytesIO(buffer), media_type="image/jpeg")
 if __name__ == '__main__':
     uvicorn.run("main:app", host='0.0.0.0', port=int(environ.get("PORT", 5000)))
-
-
-
-
