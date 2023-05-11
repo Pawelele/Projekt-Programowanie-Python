@@ -4,7 +4,6 @@ import uvicorn
 from fastapi import FastAPI, File, UploadFile
 import cv2
 import numpy as np
-from fastapi.responses import StreamingResponse
 
 app = FastAPI()
 
